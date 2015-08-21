@@ -22,13 +22,18 @@
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
 
+    //---------- Index page -------------
     //root page: loads into index.html.twig
     //Leads to stylist or clients page
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig');
     });
 
+
+    //----------- Begin Stylist Page Functionality -----------
+
     //Lists all stylists with options to edit or add a new stylist.
+    //Gives user options for add, edit, or delete all stylists.
     //Comes from index.html, leads to self or stylist edit page.
     $app->get("/stylist", function() use ($app) {
         return $app['twig']->render('stylist.html.twig', array('stylists' => Stylist::getAll()));
@@ -53,6 +58,64 @@
     $app->get("/stylist/{id}/edit", function($id) use($app) {
         $stylist = Stylist::find($id);
         return $app['twig']->render('stylist_edit.html.twig', array('stylist' => $stylist));
+    });
+
+    //Patches/Updates user specified stylist.
+    //Comes from stylist_edit.html and renders to stylist list page.
+    $app->patch("/stylist/{id}", function($id) use($app) {
+        $stylist_name = $_POST['stylist_name'];
+        $stylist = Stylist::find($id);
+        $stylist->update($stylist_name);
+        $stylists = Stylist::getAll();
+        return $app['twig']->render('stylist.html.twig', array('stylists' => $stylists));
+    });
+
+    //Deletes user specified stylist.
+    //Comes from stylist_edit.html and renders to stylist list page.
+    $app->delete("/stylist/{id}", function($id) use ($app) {
+        $stylist = Stylist::find($id);
+        $stylist->deleteOne();
+        return $app['twig']->render('stylist.html.twig', array('stylists' => stylist::getAll()));
+    });
+
+
+
+    // ------ End Stylist paage functionality --------
+
+    // ------ Begin Client page functionality --------
+
+
+
+    //Lists all clients and their associated stylists.
+    //User options to add, edit, or delete all clients.
+    //Comes from index, renders to self or to client_edit.html
+    $app->get("/client", function() use ($app) {
+        return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
+    });
+
+    //Adds a new client to the client list.
+    //Posts from client list page to self.
+    $app->post("/client", function () use ($app) {
+        $id = null;
+        $stylist_id = intval($_POST['stylist_id']);
+        $stylist_name = Stylist::find($stylist_id);
+        $client = new Client($_POST['client_name'], $id, $stylist_id);
+        $client->save();
+        return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
+    });
+
+    //Deletes all clients from the list.
+    //Comes from client list page, renders to index.
+    $app->post("/delete_clients", function() use ($app) {
+        Client::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
+    //Gets user specified client ID
+    //Comes from client list page, renders to client edit page.
+    $app->get("/client/{id}/edit", function($id) use($app) {
+        $client = Client::find($id);
+        return $app['twig']->render('client_edit.html.twig', array('cuisine' => $cuisine));
     });
 
     return $app;

@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Restaurant List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/../main.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Clients and their Stylists</h2>
+            {% if clients is not empty %}
+                <p>Here are all your clients:</p>
+                <ul class="list-group">
+                    {% for client in clients %}
+                        <li class="list-group-item">{{ client.getClientName }} -
+                            {% for stylist in stylists %}
+                                {% if client.getStylistId == stylist.getId %}
+                                    {{ stylist.getStylistName }} - <span class="badge tc"><a href="/client/{{ client.getId }}/edit">Edit</a></span></li>
+                                {% endif %}
+                            {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="submit-form">
+                <form action='/client' method='post'>
+                    <label for='client_name'>Client Name</label>
+                    <input id='client_name' name='client_name' type='text'>
+                    <select name="stylist_id">
+                        {% for stylist in stylists %}
+                        <option value="{{ stylist.getId }}">{{ stylist.getStylistName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-default" type='submit'>Add Client</button>
+                </form>
+
+                <form action='/delete_clients' method='post'>
+                    <button class="btn btn-default" type='submit'>Clear</button>
+                </form>
+            </div>
+            <p><a href='/'>Home</a></p>
+        </div>
+    </body>
+</html>
