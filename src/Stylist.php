@@ -58,7 +58,7 @@
             $returned_stylists = $GLOBALS['DB']->query("SELECT * FROM stylist;");
             $stylists = array();
             foreach($returned_stylists as $stylist) {
-                $restaurant_stylist = $stylist['stylist_name'];
+                $stylist_name = $stylist['stylist_name'];
                 $id = $stylist['id'];
                 $new_stylist = new Stylist($stylist_name, $id);
                 array_push($stylists, $new_stylist);

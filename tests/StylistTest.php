@@ -20,6 +20,8 @@
             //Client::deleteAll();
         }
 
+
+        //Testing get Name function
         function test_getName() {
             //Arrange
             $stylist_name = "Ashley";
@@ -33,6 +35,7 @@
 
         }
 
+        //Testing get ID function
         function test_getId() {
             //Arrange
             $stylist_name = "Ashley";
@@ -46,6 +49,36 @@
             $this->assertEquals($id, $result);
         }
 
+        //Testing save function to database and getAll function
+        function test_save() {
+            //Arrange
+            $stylist_name = "Ashley";
+            $test_stylist = new Stylist($stylist_name);
+            $test_stylist->save();
+
+            //Act
+            $result = Stylist::getAll();
+
+            //Assert
+            $this->assertEquals($test_stylist, $result[0]);
+
+        }
+
+        function test_getAll() {
+            //Arrange
+            $stylist_name = "Ashley";
+            $stylist_name2 = "Saki";
+            $test_stylist = new Stylist($stylist_name);
+            $test_stylist->save();
+            $test_stylist2 = new Stylist($stylist_name2);
+            $test_stylist2->save();
+
+            //Act
+            $result = Stylist::getAll();
+
+            //Assert
+            $this->assertEquals([$test_stylist, $test_stylist2], $result);
+        }
 
     }//End Class
 ?>
