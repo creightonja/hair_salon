@@ -34,7 +34,13 @@
         return $app['twig']->render('stylist.html.twig', array('stylists' => Stylist::getAll()));
     });
 
-    
+    //Post adds a new stylist to the database
+    //Gets new stylist from stylist.html and redirects back to self with updated stylist list.
+    $app->post("/stylist", function() use ($app) {
+        $stylist = new Stylist($_POST['stylist_name']);
+        $stylist->save();
+        return $app['twig']->render('stylist.html.twig', array('stylists' => Stylist::getAll()));
+    });
 
     return $app;
 ?>
