@@ -225,5 +225,23 @@
 
             }
 
+            function test_update() {
+                //Arrange
+                $client_name = "Alicia";
+                $id = null;
+                $stylist_id = 2;
+                $test_client = new Client($client_name, $id, $stylist_id);
+                $test_client->save();
+
+                $new_client_name = "Yuri";
+
+                //Act
+                $test_client->update($new_client_name);
+
+                //Assert
+                $this->assertEquals($new_client_name, $test_client->getclientName());
+
+            }
+
     }//End class
 ?>
