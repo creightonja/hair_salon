@@ -42,5 +42,12 @@
         return $app['twig']->render('stylist.html.twig', array('stylists' => Stylist::getAll()));
     });
 
+    //Deletes all stylists from database
+    //Comes from stylist post function, renders back to index page.
+    $app->post("/delete_stylists", function() use ($app) {
+        Stylist::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
     return $app;
 ?>
