@@ -32,5 +32,20 @@
             $this->assertEquals($stylist_name, $result);
 
         }
+
+        function test_getId() {
+            //Arrange
+            $stylist_name = "Ashley";
+            $id = 1;
+            $test_stylist = new Stylist($stylist_name, $id);
+
+            //Act
+            $result = $test_stylist->getId();
+
+            //Assert
+            $this->assertEquals($id, $result);
+        }
+
+
     }//End Class
 ?>
