@@ -140,5 +140,31 @@
 
         }
 
+        function test_deleteAll() {
+            //Arrange
+            $stylist_name = "Saki";
+            $id = null;
+            $test_stylist = new Stylist($stylist_name, $id);
+            $test_stylist->save();
+
+            $client_name = "Alicia";
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $id, $stylist_id);
+            $test_client->save();
+
+            $client_name2 = "Yuri";
+            $stylist_id2 = $test_stylist->getId();
+            $test_client2 = new Client($client_name2, $id, $stylist_id2);
+            $test_client2->save();
+
+            //Act
+            Client::deleteAll();
+            $result = Client::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+
+        }
+
     }//End class
 ?>
