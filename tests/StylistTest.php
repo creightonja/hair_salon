@@ -106,6 +106,7 @@
 
         }
 
+        //Testing finder function
         function test_find()
         {
             //Arrange
@@ -123,6 +124,7 @@
             $this->assertEquals($test_stylist, $result);
         }
 
+        //Testing update function
         function testUpdate()
         {
             //Arrange
@@ -138,6 +140,25 @@
 
             //Assert
             $this->assertEquals($new_stylist_name, $test_stylist->getStylistName());
+        }
+
+        //Testing deleteOne function for deleting one entry
+        function testDelete() {
+            //Arrange
+            $stylist_name = "Ashley";
+            $id = null;
+            $test_stylist = new Stylist($stylist_name, $id);
+            $test_stylist->save();
+
+            $stylist_name2 = "Saki";
+            $test_stylist2 = new Stylist($stylist_name2, $id);
+            $test_stylist2->save();
+
+            //Act
+            $test_stylist->deleteOne();
+
+            //Assert
+            $this->assertEquals([$test_stylist2], Stylist::getAll());
         }
 
     }//End Class
