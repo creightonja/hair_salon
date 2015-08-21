@@ -49,5 +49,11 @@
         return $app['twig']->render('index.html.twig');
     });
 
+    //Allows user to edit or delete a specific entry in stylist page
+    $app->get("/stylist/{id}/edit", function($id) use($app) {
+        $stylist = Stylist::find($id);
+        return $app['twig']->render('stylist_edit.html.twig', array('stylist' => $stylist));
+    });
+
     return $app;
 ?>
