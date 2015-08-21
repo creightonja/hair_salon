@@ -24,18 +24,18 @@
             return $this->id;
         }
 
-        // function getClients() {
-        //     $returned_clients = $GLOBALS['DB']->query("SELECT * FROM client ORDER BY client_name;");
-        //     $clients = array();
-        //     foreach ($returned_clients as $client) {
-        //         $client_name = $client['client_name'];
-        //         $id = $client['id'];
-        //         $stylist_id = $client['stylist_id'];
-        //         $new_client = new Client($cuisine_name, $id, $restaurant_id);
-        //         array_push($client, $new_client);
-        //     }
-        //     return $clients;
-        // }
+        function getClients() {
+            $returned_clients = $GLOBALS['DB']->query("SELECT * FROM client ORDER BY client_name;");
+            $clients = array();
+            foreach ($returned_clients as $client) {
+                $client_name = $client['client_name'];
+                $id = $client['id'];
+                $stylist_id = $client['stylist_id'];
+                $new_client = new Client($cuisine_name, $id, $restaurant_id);
+                array_push($client, $new_client);
+            }
+            return $clients;
+        }
 
         function save() {
             $GLOBALS['DB']->exec("INSERT INTO stylist (stylist_name) VALUES

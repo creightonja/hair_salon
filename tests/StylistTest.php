@@ -18,7 +18,7 @@
         protected function tearDown()
         {
             Stylist::deleteAll();
-            //Client::deleteAll();
+            Client::deleteAll();
         }
 
 
@@ -160,6 +160,26 @@
             //Assert
             $this->assertEquals([$test_stylist2], Stylist::getAll());
         }
+
+        // //Testing to see if delete stylist also deletes her clients
+        // function testDeleteStylistClients() {
+        //     //Arrange
+        //     $stylist_name = "Ashley";
+        //     $id = null;
+        //     $test_stylist = new Stylist($stylist_name, $id);
+        //     $test_stylist->save();
+        //
+        //     $client_name = "Alicia";
+        //     $stylist_id = $test_stylist->getId();
+        //     $test_client = new Client($client_name, $id, $stylist_id);
+        //     $test_client->save();
+        //
+        //     //Act
+        //     $test_stylist->deleteOne();
+        //
+        //     //Assert
+        //     $this->assertEquals([], Client::getAll());
+        // }
 
     }//End Class
 ?>
