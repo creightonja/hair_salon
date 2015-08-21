@@ -115,7 +115,17 @@
     //Comes from client list page, renders to client edit page.
     $app->get("/client/{id}/edit", function($id) use($app) {
         $client = Client::find($id);
-        return $app['twig']->render('client_edit.html.twig', array('cuisine' => $cuisine));
+        return $app['twig']->render('client_edit.html.twig', array('client' => $client));
+    });
+
+    //Patches/Updates the client name.
+    //Comes from client_edit.html and redners to client list page.
+    $app->patch("/client/{id}", function($id) use($app) {
+        $client_name = $_POST['client_name'];
+        $client = Client::find($id);
+        $client->update($client_name);
+        $clients = Client::getAll();
+        return $app['twig']->render('client.html.twig', array('clients' => $clients, 'stylists' => Stylist::getAll()));
     });
 
     return $app;
