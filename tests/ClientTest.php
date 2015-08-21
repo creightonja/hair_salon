@@ -225,7 +225,9 @@
 
             }
 
-            function test_update() {
+            //Testing update client name function
+            function test_update()
+            {
                 //Arrange
                 $client_name = "Alicia";
                 $id = null;
@@ -241,6 +243,27 @@
                 //Assert
                 $this->assertEquals($new_client_name, $test_client->getclientName());
 
+            }
+
+            //Testing delete single entry function
+            function testDelete()
+            {
+                //Arrange
+                $stylist_name = "Saki";
+                $id = null;
+                $test_stylist = new Stylist($stylist_name, $id);
+                $test_stylist->save();
+
+                $stylist_id = $test_stylist->getId();
+                $client_name = "Alicia";
+                $test_client = new Client($client_name, $id, $stylist_id);
+                $test_client->save();
+
+                //Act
+                $test_client->deleteOne();
+
+                //Assert
+                $this->assertEquals([], Client::getAll());
             }
 
     }//End class
