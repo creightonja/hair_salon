@@ -8,13 +8,18 @@
     require_once "src/Stylist.php";
     require_once "src/Client.php";
 
+
+    //Note ** localhost port set to 8080 to interface with MAMP
     $server = 'mysql:host=localhost:8080;dbname=hair_salon_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
-    class StylistTest extends PHPUnit_Framework_TestCase {
+    //Accessing phpunit framework
+    class StylistTest extends PHPUnit_Framework_TestCase
+    {
 
+        //Protected function deleting databases after test
         protected function tearDown()
         {
             Stylist::deleteAll();
@@ -143,7 +148,8 @@
         }
 
         //Testing deleteOne function for deleting one entry
-        function testDelete() {
+        function testDelete()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $id = null;
@@ -161,25 +167,26 @@
             $this->assertEquals([$test_stylist2], Stylist::getAll());
         }
 
-        // //Testing to see if delete stylist also deletes her clients
-        // function testDeleteStylistClients() {
-        //     //Arrange
-        //     $stylist_name = "Ashley";
-        //     $id = null;
-        //     $test_stylist = new Stylist($stylist_name, $id);
-        //     $test_stylist->save();
-        //
-        //     $client_name = "Alicia";
-        //     $stylist_id = $test_stylist->getId();
-        //     $test_client = new Client($client_name, $id, $stylist_id);
-        //     $test_client->save();
-        //
-        //     //Act
-        //     $test_stylist->deleteOne();
-        //
-        //     //Assert
-        //     $this->assertEquals([], Client::getAll());
-        // }
+        //Testing to see if delete stylist also deletes her clients
+        function testDeleteStylistClients()
+        {
+            //Arrange
+            $stylist_name = "Ashley";
+            $id = null;
+            $test_stylist = new Stylist($stylist_name, $id);
+            $test_stylist->save();
+
+            $client_name = "Alicia";
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $id, $stylist_id);
+            $test_client->save();
+
+            //Act
+            $test_stylist->deleteOne();
+
+            //Assert
+            $this->assertEquals([], Client::getAll());
+        }
 
     }//End Class
 ?>

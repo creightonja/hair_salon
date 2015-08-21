@@ -31,7 +31,7 @@
                 $client_name = $client['client_name'];
                 $id = $client['id'];
                 $stylist_id = $client['stylist_id'];
-                $new_client = new Client($cuisine_name, $id, $restaurant_id);
+                $new_client = new Client($client_name, $id, $stylist_id);
                 array_push($client, $new_client);
             }
             return $clients;
@@ -51,7 +51,7 @@
 
         function deleteOne() {
             $GLOBALS['DB']->exec("DELETE FROM stylist WHERE id = {$this->getId()};");
-            $GLOBALS['DB']->exec("DELETE FROM client WHERE restaurant_id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM client WHERE stylist_id = {$this->getId()};");
         }
 
         static function getAll() {
