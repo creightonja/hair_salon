@@ -22,6 +22,7 @@
             Client::deleteAll();
         }
 
+        //Testing Get Client ID
         function test_getId() {
             //Arrange
             $stylist_name = "Saki";
@@ -42,6 +43,7 @@
             $this->assertEquals(true, is_numeric($result));
         }
 
+        //Testing get Stylist ID from client class
         function test_getStylistId() {
             //Arrange
             $stylist_name = "Saki";
@@ -59,6 +61,26 @@
 
             //Assert
             $this->assertEquals(true, is_numeric($result));
+        }
+
+        //Testing get client name from client class
+        function test_getClientId() {
+            //Arrange
+            $stylist_name = "Saki";
+            $id = null;
+            $test_stylist = new Stylist($stylist_name, $id);
+            $test_stylist->save();
+
+            $client_name = "Alicia";
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $id, $stylist_id);
+            $test_client->save();
+
+            //Act
+            $result = $test_client->getClientName();
+
+            //Assert
+            $this->assertEquals($client_name, $result);
         }
 
     }//End class
