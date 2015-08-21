@@ -128,5 +128,13 @@
         return $app['twig']->render('client.html.twig', array('clients' => $clients, 'stylists' => Stylist::getAll()));
     });
 
+    //Deletes user specified client from client list
+    //Comes from client_edit.html and renders to client list page.
+    $app->delete("/client/{id}", function($id) use ($app) {
+        $client = Client::find($id);
+        $client->deleteOne();
+        return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
+    });
+
     return $app;
 ?>
