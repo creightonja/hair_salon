@@ -15,14 +15,16 @@
 
     class StylistTest extends PHPUnit_Framework_TestCase {
 
-        protected function tearDown() {
+        protected function tearDown()
+        {
             Stylist::deleteAll();
             //Client::deleteAll();
         }
 
 
         //Testing get Name function
-        function test_getName() {
+        function test_getName()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $test_stylist = new Stylist($stylist_name);
@@ -36,7 +38,8 @@
         }
 
         //Testing get ID function
-        function test_getId() {
+        function test_getId()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $id = 1;
@@ -50,7 +53,8 @@
         }
 
         //Testing save function to database and getAll function
-        function test_save() {
+        function test_save()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $test_stylist = new Stylist($stylist_name);
@@ -65,7 +69,8 @@
         }
 
         //Testing multiple get all function
-        function test_getAll() {
+        function test_getAll()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $stylist_name2 = "Saki";
@@ -82,7 +87,8 @@
         }
 
         //Testing deleteAll function
-        function test_deleteAll() {
+        function test_deleteAll()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $stylist_name2 = "Saki";
@@ -100,7 +106,8 @@
 
         }
 
-        function test_find() {
+        function test_find()
+        {
             //Arrange
             $stylist_name = "Ashley";
             $stylist_name2 = "Saki";
@@ -114,6 +121,23 @@
 
             //Assert
             $this->assertEquals($test_stylist, $result);
+        }
+
+        function testUpdate()
+        {
+            //Arrange
+            $stylist_name = "Ashley";
+            $id = null;
+            $test_stylist = new Stylist($stylist_name, $id);
+            $test_stylist->save();
+
+            $new_stylist_name = "Saki";
+
+            //Act
+            $test_stylist->update($new_stylist_name);
+
+            //Assert
+            $this->assertEquals($new_stylist_name, $test_stylist->getStylistName());
         }
 
     }//End Class
