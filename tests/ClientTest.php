@@ -23,7 +23,8 @@
         }
 
         //Testing Get Client ID
-        function test_getId() {
+        function test_getId()
+        {
             //Arrange
             $stylist_name = "Saki";
             $id = null;
@@ -44,7 +45,8 @@
         }
 
         //Testing get Stylist ID from client class
-        function test_getStylistId() {
+        function test_getStylistId()
+        {
             //Arrange
             $stylist_name = "Saki";
             $id = null;
@@ -64,7 +66,8 @@
         }
 
         //Testing get client name from client class
-        function test_getClientId() {
+        function test_getClientId()
+        {
             //Arrange
             $stylist_name = "Saki";
             $id = null;
@@ -81,6 +84,32 @@
 
             //Assert
             $this->assertEquals($client_name, $result);
+        }
+
+        function test_save()
+        {
+            //Arrange
+            $stylist_name = "Saki";
+            $id = null;
+            $test_stylist = new Stylist($stylist_name, $id);
+            $test_stylist->save();
+
+            $client_name = "Alicia";
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $id, $stylist_id);
+            $test_client->save();
+
+            $client_name2 = "Yuri";
+            $stylist_id2 = $test_stylist->getId();
+            $test_client2 = new Client($client_name2, $id, $stylist_id2);
+            $test_client2->save();
+
+            //Act
+            $result = Client::getAll();
+
+            //Assert
+            $this->assertEquals([$test_client, $test_client2], $result);
+
         }
 
     }//End class
