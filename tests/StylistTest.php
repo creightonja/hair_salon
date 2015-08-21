@@ -81,6 +81,7 @@
             $this->assertEquals([$test_stylist, $test_stylist2], $result);
         }
 
+        //Testing deleteAll function
         function test_deleteAll() {
             //Arrange
             $stylist_name = "Ashley";
@@ -97,6 +98,22 @@
             //Assert
             $this->assertEquals([], $result);
 
+        }
+
+        function test_find() {
+            //Arrange
+            $stylist_name = "Ashley";
+            $stylist_name2 = "Saki";
+            $test_stylist = new Stylist($stylist_name);
+            $test_stylist->save();
+            $test_stylist2 = new Stylist($stylist_name2);
+            $test_stylist2->save();
+
+            //Act
+            $result = Stylist::find($test_stylist->getId());
+
+            //Assert
+            $this->assertEquals($test_stylist, $result);
         }
 
     }//End Class
