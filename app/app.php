@@ -104,6 +104,13 @@
         return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
     });
 
+    //Adds a new client to the client list.
+    //Posts from client list page to self.
+    $app->post("/get_stylist_clients", function () use ($app) {
+        $stylist_id = intval($_POST['stylist_id']);
+        return $app['twig']->render('client.html.twig', array('clients' => Client::getStylistClients($stylist_id), 'stylists' => Stylist::getAll()));
+    });
+
     //Deletes all clients from the list.
     //Comes from client list page, renders to index.
     $app->post("/delete_clients", function() use ($app) {
@@ -135,6 +142,8 @@
         $client->deleteOne();
         return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
     });
+
+
 
     return $app;
 ?>

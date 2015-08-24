@@ -82,6 +82,19 @@
             }
             return $found_client;
         }
+
+        static function getStylistClients($stylist_id) {
+            $returned_clients = $GLOBALS['DB']->query("SELECT * FROM client WHERE stylist_id = {$stylist_id};");
+            $clients = array();
+            foreach ($returned_clients as $client) {
+                $client_name = $client['client_name'];
+                $id = $client['id'];
+                $stylist_id = $client['stylist_id'];
+                $new_client = new Client($client_name, $id, $stylist_id);
+                array_push($clients, $new_client);
+            }
+            return $clients;
+        }
     }
 
 

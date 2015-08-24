@@ -20,7 +20,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <div class="submit-form">
+            <div class="submit-form ri">
                 <form action='/client' method='post'>
                     <label for='client_name'>Client Name</label>
                     <input id='client_name' name='client_name' type='text'>
@@ -33,11 +33,26 @@
                     <button class="btn btn-default" type='submit'>Add Client</button>
                 </form>
 
-                <form action='/delete_clients' method='post'>
-                    <button class="btn btn-default" type='submit'>Clear</button>
+
+            </div>
+
+            <div class="submit-form ri">
+                <form action='/get_stylist_clients' method='post'>
+                    <select name="stylist_id">
+                        {% for stylist in stylists %}
+                        <option value="{{ stylist.getId }}">{{ stylist.getStylistName }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-default" type='submit'>Find a stylist's clients</button>
                 </form>
+
+                <form action='/delete_clients' method='post'>
+                    <button class="btn btn-default" type='submit'>Clear Clients</button>
+                </form>
+                <br><br>
             </div>
             <p><a href='/'>Home</a></p>
+            <p><a href="/client">View All Clients</a></p>
         </div>
     </body>
 </html>
