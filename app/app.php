@@ -104,7 +104,7 @@
         return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
     });
 
-    //Adds a new client to the client list.
+    //Retrieves user specified stylist and returns the clients of that stylist.
     //Posts from client list page to self.
     $app->post("/get_stylist_clients", function () use ($app) {
         $stylist_id = intval($_POST['stylist_id']);
@@ -142,8 +142,6 @@
         $client->deleteOne();
         return $app['twig']->render('client.html.twig', array('clients' => Client::getAll(), 'stylists' => Stylist::getAll()));
     });
-
-
 
     return $app;
 ?>
